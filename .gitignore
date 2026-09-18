@@ -1,0 +1,28 @@
+# ---- OS ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- Windows (Tauri / Rust) ----
+windows/src-tauri/target/
+windows/src-tauri/gen/
+windows/node_modules/
+windows/dist/
+*.msi
+*.exe
+
+# ---- Android ----
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+*.apk
+*.aab
+*.keystore
+
+# ---- IDE ----
+.idea/
+.vscode/
+*.swp

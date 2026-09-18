@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  无障碍服务配置：
+  - 监听窗口内容变化 / 通知 / 视图文本变化，用于感知「复制」动作
+  - 不读屏、不操作，仅做事件感知，隐私面最小
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeViewTextChanged|typeWindowContentChanged|typeNotificationStateChanged|typeViewClicked"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagRetrieveInteractiveWindows"
+    android:notificationTimeout="50"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/a11y_desc" />

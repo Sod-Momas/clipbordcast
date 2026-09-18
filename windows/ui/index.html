@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClipBordcast</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; margin: 16px; color: #222; }
+    h1 { font-size: 18px; }
+    h2 { font-size: 14px; margin-top: 20px; color: #555; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+    .muted { color: #888; font-size: 12px; }
+    ul { padding-left: 18px; }
+    li { margin: 4px 0; font-size: 13px; }
+    .hash { font-family: Consolas, monospace; color: #999; }
+  </style>
+</head>
+<body>
+  <h1>ClipBordcast <span class="muted">v0.1 · Round 1 骨架</span></h1>
+
+  <h2>局域网设备</h2>
+  <ul id="peers"><li class="muted">等待发现…</li></ul>
+
+  <h2>剪贴板事件</h2>
+  <ul id="clips"></ul>
+
+  <script>
+    // withGlobalTauri: true，无需打包器即可使用事件 API
+    const { listen } = window.__TAURI__.event;
+
+    const peers = document.getElementById("peers");
+    const clips = document.getElementById("clips");
+    const seen = new Set();
+
+    listen("peer-found", (e) => {
+      const p = e.payload;
+      if (seen.has(p.device_id)) return;
+      seen.add(p.device_id);
+      if (seen.size === 1) peers.innerHTML = "";
+      const li = document.createElement("li");
+      li.textContent = p.device_name + " @ " + p.addr + ":" + p.port + "（待配对）";
+      peers.appendChild(li);
+    });
+
+    listen("clip-changed", (e) => {
+      const m = e.payload;
+      const li = document.createElement("li");
+      const preview = m.payload.text.length > 40
+        ? m.payload.text.slice(0, 40) + "…"
+        : m.payload.text;
+      li.innerHTML = "<span></span> <span class='hash'></span>";
+      li.children[0].textContent = preview;
+      li.children[1].textContent = "hash:" + m.hash.slice(0, 8) + " len:" + m.payload.text.length;
+      clips.prepend(li);
+      while (clips.children.length > 20) clips.lastChild.remove();
+    });
+  </script>
+</body>
+</html>

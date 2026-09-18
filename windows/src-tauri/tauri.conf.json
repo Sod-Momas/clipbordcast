@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ClipBordcast",
+  "version": "0.1.0",
+  "identifier": "dev.sothe.clipbordcast",
+  "build": {
+    "frontendDist": "../ui",
+    "devUrl": "http://localhost:1420"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "ClipBordcast",
+        "width": 420,
+        "height": 600,
+        "resizable": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": false
+  }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ClipBordcast</string>
+    <string name="a11y_desc">用于感知系统复制动作并广播剪贴板文本到已配对设备，不读取屏幕内容。</string>
+    <string name="notif_channel_id">clipbordcast_service</string>
+    <string name="notif_channel_name">后台服务</string>
+    <string name="notif_text">剪贴板广播服务运行中</string>
+</resources>
