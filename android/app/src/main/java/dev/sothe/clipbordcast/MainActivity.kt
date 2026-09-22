@@ -67,15 +67,24 @@ fun MainScreen(
         Text("v0.1 · Round 1 骨架", style = MaterialTheme.typography.bodySmall)
         Spacer(Modifier.height(24.dp))
 
-        // 无障碍状态卡片
+        // 采集通道卡片：AppOps（推荐）/ 无障碍（兜底）
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp)) {
-                Text("无障碍服务（剪贴板采集）", style = MaterialTheme.typography.titleSmall)
+                Text("剪贴板采集通道", style = MaterialTheme.typography.titleSmall)
                 Spacer(Modifier.height(8.dp))
-                Text(if (a11yEnabled) "状态：已开启 ✅" else "状态：未开启 —— 复制监听不可用")
+                Text(
+                    "推荐（免备案）：USB 连电脑执行一次\n" +
+                        "adb shell appops set dev.sothe.clipbordcast READ_CLIPBOARD allow\n" +
+                        "授权后后台直读剪贴板，无需无障碍。"
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    if (a11yEnabled) "兜底通道：无障碍已开启 ✅"
+                    else "兜底通道：无障碍未开启（MIUI 未备案应用可能被拦截，可用 adb 命令开启）"
+                )
                 if (!a11yEnabled) {
                     Spacer(Modifier.height(8.dp))
-                    Button(onClick = onOpenA11ySettings) { Text("去开启") }
+                    Button(onClick = onOpenA11ySettings) { Text("尝试开启无障碍") }
                 }
             }
         }
